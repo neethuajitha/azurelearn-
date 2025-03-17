@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageAccountTier": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            },
+            "defaultValue": "Premium",
+            "allowedValues": [
+                "Standard",
+                "Premium"
+            ]
+        }
+    },
+    "functions": [],
+    "variables": {
+        "resourceName": "neest"
+    },
+    "resources": [{
+        "name": "[variables('resourceName')]",
+        "type": "Microsoft.Storage/storageAccounts",
+        "apiVersion": "2023-05-01",
+        "tags": {
+            "displayName": "neestorage"
+        },
+        "location": "[resourceGroup().location]",
+        "kind": "StorageV2",
+        "sku": {
+            "name": "Premium_LRS",
+            "tier": "[parameters('storageAccountTier')]"
+        }
+    }],
+    "outputs": {}
+}
